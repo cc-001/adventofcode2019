@@ -7,8 +7,8 @@ import (
 	"strconv"
 )
 
-func Day01_parse() []int {
-	file, err := os.Open("day01/day01.txt")
+func Day01_parse(fileName string) []int {
+	file, err := os.Open(fileName)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -25,3 +25,15 @@ func Test_day01_2(t *testing.T) {
 		}
 	}
 }
+
+var bench_inputs []int
+
+func init() {
+	bench_inputs = Day01_parse("day01.txt")
+}
+
+func BenchmarkDay01_part2_solve(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Day01_part2_solve(bench_inputs)
+	}
+}

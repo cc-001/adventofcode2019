@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	part1_inputs := day01.Day01_parse()
+	part1_inputs := day01.Day01_parse("day01/day01.txt")
 	fmt.Printf("Day01_part1_solve: %d\n", day01.Day01_part1_solve(part1_inputs))
 	fmt.Printf("Day01_part2_solve: %d\n", day01.Day01_part2_solve(part1_inputs))
 }
