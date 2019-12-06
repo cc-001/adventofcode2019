@@ -1,11 +1,14 @@
 package main
 
 import (
-	"advent2019/day04"
+	"advent2019/day02"
+	"advent2019/day05"
 	"fmt"
 )
 
 func main() {
-	//fmt.Printf("part1: %d", day04.Day04_solve(273025, 767253, false))
-	fmt.Printf("part2: %d", day04.Day04_solve(273025, 767253, true))
+	in := day02.Day02_parse("day05/day05.txt")
+	output := make([]int, 0)
+	day05.Day05_solve(in, 5, &output)
+	fmt.Printf("part2: %v", output)
 }
