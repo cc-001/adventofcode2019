@@ -51,7 +51,6 @@ func (a *amplifier) execute(input int) int {
 	}
 	if len(a.output) > 0 {
 		a.last_output = a.output[0]
-		return a.last_output
 	}
 	return a.last_output
 }
