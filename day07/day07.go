@@ -37,10 +37,6 @@ type amplifier struct {
 	pc int
 }
 
-func (a *amplifier) reset(program []int) {
-	copy(a.memory, program)
-}
-
 func (a *amplifier) execute(input int) int {
 	a.output = make([]int, 0)
 	inputs := []int{a.phase, input}
@@ -60,29 +56,11 @@ func (a *amplifier) execute(input int) int {
 	return a.last_output
 }
 
-func Day07_solve_part1(program []int, phase_setting []int) int {
+func Day07_solve_universal(program []int, phase_setting []int, suspend bool) int {
 	amps := make([]amplifier, 0, len(phase_setting))
 	for i := 0; i < len(phase_setting); i++ {
 		amps = append(amps, amplifier{
-			phase: phase_setting[i],
-			memory: make([]int, len(program)),
-		})
-		copy(amps[i].memory, program)
-	}
-
-	input := 0
-	for i := 0; i < len(amps); i++ {
-		input = amps[i].execute(input)
-		amps[i].reset(program)
-	}
-	return input
-}
-
-func Day07_solve_part2(program []int, phase_setting []int) int {
-	amps := make([]amplifier, 0, len(phase_setting))
-	for i := 0; i < len(phase_setting); i++ {
-		amps = append(amps, amplifier{
-			suspend: true,
+			suspend: suspend,
 			phase: phase_setting[i],
 			memory: make([]int, len(program)),
 		})
@@ -94,12 +72,16 @@ func Day07_solve_part2(program []int, phase_setting []int) int {
 	for {
 		for i := 0; i < len(amps); i++ {
 			input = amps[i].execute(input)
-			if amps[i].pc == -1 {
+			if suspend && amps[i].pc == -1 {
 				done = true
 			}
 		}
-		if done {
-			return amps[len(amps)-1].last_output
+		if suspend {
+			if done {
+				return amps[len(amps)-1].last_output
+			}
+		} else {
+			return input
 		}
 	}
 }
@@ -115,11 +97,7 @@ func Day07_solve(program []int, num_amps int, initial_phase int, part2 bool) int
 	best_thrust := math.MinInt32
 	var best_seq slice
 	for _, i := range phase_seqs {
-		if part2 {
-			thrust = Day07_solve_part2(program, i)
-		} else {
-			thrust = Day07_solve_part1(program, i)
-		}
+		thrust = Day07_solve_universal(program, i, part2)
 		if thrust > best_thrust {
 			best_thrust = thrust
 			best_seq = i
