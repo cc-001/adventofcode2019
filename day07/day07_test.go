@@ -56,5 +56,7 @@ func Test_day07_6(t *testing.T) {
 func Test_day07_7(t *testing.T) {
 	program := day02.Day02_parse("day07.txt")
 	ans := Day07_solve(program, 5, 5, true)
-	t.Logf("ans: %d", ans)
+	if ans != 1336480 {
+		t.Errorf("Failed test, got: %d, want: 1336480", ans)
+	}
 }
