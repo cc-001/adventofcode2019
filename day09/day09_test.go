@@ -40,7 +40,6 @@ func Test_day09_4(t *testing.T) {
 	in := day02.Day02_parse("day09.txt")
 	output := make([]int, 0)
 	day05.Day05_solve_adapter(in, 1, &output)
-	t.Logf("%v", output)
 	if len(output) != 1 || output[0] != 3235019597 {
 		t.Errorf("Failed test, got: %v, want: %v", output[0], 3235019597)
 	}
@@ -50,5 +49,7 @@ func Test_day09_5(t *testing.T) {
 	in := day02.Day02_parse("day09.txt")
 	output := make([]int, 0)
 	day05.Day05_solve_adapter(in, 2, &output)
-	t.Logf("%v", output)
+	if len(output) != 1 || output[0] != 80274 {
+		t.Errorf("Failed test, got: %v, want: %v", output[0], 80274)
+	}
 }
