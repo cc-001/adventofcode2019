@@ -3,6 +3,7 @@ package day11
 import (
 	"advent2019/day02"
 	"advent2019/day05"
+	"github.com/nfnt/resize"
 	"image"
 	"image/color"
 	"image/png"
@@ -79,7 +80,10 @@ func (s ship) png(file string) {
 		}
 	}
 
-	if err := png.Encode(f, img); err != nil {
+	scale := uint(4)
+	img_scaled := resize.Resize(uint(width)*scale, uint(height)*scale, img, resize.NearestNeighbor)
+
+	if err := png.Encode(f, img_scaled); err != nil {
 		log.Fatal(err)
 	}
 }
