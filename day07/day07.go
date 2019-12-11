@@ -35,6 +35,7 @@ type amplifier struct {
 	last_output int
 	suspend_count int
 	pc int
+	rb int
 }
 
 func (a *amplifier) execute(input int) int {
@@ -44,10 +45,10 @@ func (a *amplifier) execute(input int) int {
 		if a.suspend_count > 0 {
 			inputs[0] = input
 		}
-		a.memory = day05.Day05_solve(a.memory, inputs, &a.output, &a.pc)
+		a.memory = day05.Day05_solve(a.memory, inputs, &a.output, &a.pc, &a.rb, true)
 		a.suspend_count++
 	} else {
-		day05.Day05_solve(a.memory, inputs, &a.output, nil)
+		day05.Day05_solve(a.memory, inputs, &a.output, nil, nil,true)
 	}
 	if len(a.output) > 0 {
 		a.last_output = a.output[0]

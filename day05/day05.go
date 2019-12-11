@@ -32,22 +32,27 @@ func fetch(param int, mode [3]int, pc int, rb int, memory *[]int) int {
 	if mode[param-1] == 1 {
 		return addr
 	}
+	if addr >= len(*memory) {
+		return 0
+	}
 	return (*memory)[addr]
 }
 
 func Day05_solve_adapter(memory []int, input int, output *[]int) []int {
 	new_input := make([]int, 0, 1)
 	new_input = append(new_input, input)
-	return Day05_solve(memory, new_input, output, nil)
+	return Day05_solve(memory, new_input, output, nil, nil,true)
 }
 
-func Day05_solve(memory []int, input []int, output *[]int, pc_out *int) []int {
+func Day05_solve(memory []int, input []int, output *[]int, pc_out *int, rb_out *int, inc_input bool) []int {
 	input_ctr := 0
 	pc := 0
 	rb := 0
 	if pc_out != nil {
-		// resume
 		pc = *pc_out
+	}
+	if rb_out != nil {
+		rb = *rb_out
 	}
 	for {
 		instruction := fmt.Sprintf("%05d", memory[pc])
@@ -76,11 +81,16 @@ func Day05_solve(memory []int, input []int, output *[]int, pc_out *int) []int {
 		case 3:
 			addr := get_addr(1, mode, pc, rb, &memory, true)
 			memory[addr] = input[input_ctr]
-			input_ctr++
+			if inc_input {
+				input_ctr++
+			}
 			pc += 2
 		case 4:
 			*output = append(*output, fetch(1, mode, pc, rb, &memory))
 			pc += 2
+			if rb_out != nil {
+				*rb_out = rb
+			}
 			if pc_out != nil {
 				// suspend
 				*pc_out = pc
