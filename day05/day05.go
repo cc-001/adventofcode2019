@@ -41,10 +41,10 @@ func fetch(param int, mode [3]int, pc int, rb int, memory *[]int) int {
 func Day05_solve_adapter(memory []int, input int, output *[]int) []int {
 	new_input := make([]int, 0, 1)
 	new_input = append(new_input, input)
-	return Day05_solve(memory, new_input, output, nil, nil,true)
+	return Day05_solve(memory, new_input, output, nil, nil,true, nil)
 }
 
-func Day05_solve(memory []int, input []int, output *[]int, pc_out *int, rb_out *int, inc_input bool) []int {
+func Day05_solve(memory []int, input []int, output *[]int, pc_out *int, rb_out *int, inc_input bool, get func()int) []int {
 	input_ctr := 0
 	pc := 0
 	rb := 0
@@ -80,7 +80,11 @@ func Day05_solve(memory []int, input []int, output *[]int, pc_out *int, rb_out *
 			pc += 4
 		case 3:
 			addr := get_addr(1, mode, pc, rb, &memory, true)
-			memory[addr] = input[input_ctr]
+			if get != nil {
+				memory[addr] = get()
+			} else {
+				memory[addr] = input[input_ctr]
+			}
 			if inc_input {
 				input_ctr++
 			}

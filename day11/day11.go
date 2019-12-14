@@ -99,11 +99,11 @@ func (r *robot) tick(s *ship) bool {
 	}
 
 	output := make([]int, 0)
-	r.memory = day05.Day05_solve(r.memory, input, &output, &r.pc, &r.rb,false)
+	r.memory = day05.Day05_solve(r.memory, input, &output, &r.pc, &r.rb,false, nil)
 	if r.pc < 0 {
 		return false
 	}
-	r.memory = day05.Day05_solve(r.memory, input, &output, &r.pc, &r.rb,false)
+	r.memory = day05.Day05_solve(r.memory, input, &output, &r.pc, &r.rb,false, nil)
 	if r.pc < 0 {
 		return false
 	}

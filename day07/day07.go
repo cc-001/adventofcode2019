@@ -45,10 +45,10 @@ func (a *amplifier) execute(input int) int {
 		if a.suspend_count > 0 {
 			inputs[0] = input
 		}
-		a.memory = day05.Day05_solve(a.memory, inputs, &a.output, &a.pc, &a.rb, true)
+		a.memory = day05.Day05_solve(a.memory, inputs, &a.output, &a.pc, &a.rb, true, nil)
 		a.suspend_count++
 	} else {
-		day05.Day05_solve(a.memory, inputs, &a.output, nil, nil,true)
+		day05.Day05_solve(a.memory, inputs, &a.output, nil, nil,true, nil)
 	}
 	if len(a.output) > 0 {
 		a.last_output = a.output[0]
